@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import rospy
-form std_msgs.msg import UInt16
+from std_msgs.msg import UInt16
 
 def recv_buzzer(data):
 	rospy.loginfo(type(data))
