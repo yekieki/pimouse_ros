@@ -4,7 +4,7 @@ import sys, rospy, math
 from pimouse_ros.msg import MotorFreqs
 from geometry_msgs.msg import Twist
 from std_srvs.srv import Trigger, TriggerResponse
-from pimouse_ros.srv import TimedMotion
+from pimouse_ros.srv import TimedMotion                                               #追加
 
 class Motor():
     def __init__(self):
@@ -13,11 +13,11 @@ class Motor():
         rospy.on_shutdown(self.set_power)
         self.sub_raw = rospy.Subscriber('motor_raw', MotorFreqs, self.callback_raw_freq)
         self.sub_cmd_vel = rospy.Subscriber('cmd_vel', Twist, self.callback_cmd_vel)
-	self.srv_on = rospy.Service('motor_on', Trigger, self.callback_on)
-	self.srv_off = rospy.Service('motor_off', Trigger, self.callback_off) 
+        self.srv_on = rospy.Service('motor_on', Trigger, self.callback_on)
+        self.srv_off = rospy.Service('motor_off', Trigger, self.callback_off)
+        self.srv_tm = rospy.Service('timed_motion', TimedMotion, self.callback_tm)    #追加
         self.last_time = rospy.Time.now()
         self.using_cmd_vel = False
-        self.srv_tm = rospy.Service('timed_motion', TimedMotion, self.callback_tm)
 
     def set_power(self,onoff=False):
         en = "/dev/rtmotoren0"
